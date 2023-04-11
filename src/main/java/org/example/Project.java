@@ -4,6 +4,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -16,79 +18,81 @@ public class Project
 {
    static Scanner sc = new Scanner(System.in);
 
-   public static void main(String[] args) throws Exception {
+   public static void main(String[] args) throws Exception
+   {
 
-      System.out.println("Select the appropriate number based on your choice");
-      System.out.println("1. opening the browser");
-      System.out.println("2. opening the given url");
-      System.out.println("3. open the browser if the credentials are correct");
-      System.out.println("4. open the url and give responses of the invalid credentials");
-      System.out.println("5. Implement all locators");
-      System.out.println("6. Implement CSSSelector");
-      System.out.println("7. Implement Xpath");
-      System.out.println("8. Develop all Html Controls including checkbox, radio, button,  drop downs(single and multiple) separately");
-      System.out.println("9. Implement all Alerts(simple alert,confirm,prompt alert)");
-      System.out.println("10. Implement window/screenshot after pushing the code into your github account");
-      System.out.println("Choose the option of your choice");
+      boolean exit = false;
 
-      int option = sc.nextInt();
-      switch (option)
+      while(!exit)
       {
-         case 1:
-            openbrowser();
-            break;
-         case 2:
-            openurl();
-            break;
-         case 3:
-            browsercorrectcred();
-            break;
-         case 4:
-            browserincorrectcred();
-            break;
-         case 5:
-            allLocators();
-            break;
-         case 6:
-            implementCSSSelector();
-            break;
-         case 7:
-            implementXpath();
-            break;
-         case 8:
-            allHtml();
-            break;
+         System.out.println("Options or press 11 to quit");
+         System.out.println("1. opening the browser");
+         System.out.println("2. opening the given url using the url given in the console");
+         System.out.println("3. open the browser if the credentials are correct");
+         System.out.println("4. open the url and give responses of the invalid credentials");
+         System.out.println("5. Implement all locators");
+         System.out.println("6. Implement CSSSelector");
+         System.out.println("7. Implement Xpath");
+         System.out.println("8. Develop all Html Controls including checkbox, radio, button,  drop downs(single and multiple) separately");
+         System.out.println("9. Implement all Alerts(simple alert,confirm,prompt alert)");
+         System.out.println("10. Implement window/screenshot after pushing the code into your github account");
+         System.out.println("11. Enter 11 to exit the loop!!!");
+         System.out.println("Choose the option of your choice");
 
-         case 9:
-            allAlerts();
-            break;
+         int option = sc.nextInt();
+         switch (option) {
+            case 1:
+               openbrowser();
+               break;
+            case 2:
+               openurl();
+               break;
+            case 3:
+               browsercorrectcred();
+               break;
+            case 4:
+               browserincorrectcred();
+               break;
+            case 5:
+               allLocators();
+               break;
+            case 6:
+               implementCSSSelector();
+               break;
+            case 7:
+               implementXpath();
+               break;
+            case 8:
+               allHtml();
+               break;
 
-         case 10:
-            screenshot();
-            break;
+            case 9:
+               allAlerts();
+               break;
 
-         default:
-            System.out.println("You didn't enter a number that is within the limit");
-            break;
+            case 10:
+               screenshot();
+               break;
+            case 11:
+               System.out.println("EXIT!!!!");
+               exit = true;
+               break;
+
+            default:
+               System.out.println("You didn't enter a number that is within the limit");
+               break;
+         }
       }
-
-
-
-
-
-
-
-
-
-
-
    }
 
    public static void openbrowser()
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
 
       driver.get("https://www.facebook.com/");
    }
@@ -96,8 +100,11 @@ public class Project
    public static void openurl()
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
 
       String url = sc.nextLine();
       driver.get(url);
@@ -106,12 +113,15 @@ public class Project
    public static void browsercorrectcred()
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
 
       driver.get("https://github.com/login");
 
-      driver.findElement(By.cssSelector("#password")).sendKeys("vasista45@gmail.com");
+      driver.findElement(By.cssSelector("#login_field")).sendKeys("vasista45@gmail.com");
       driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("20Vasi02@12");
       driver.findElement(By.cssSelector("#login > div.auth-form-body.mt-3 > form > div > input.btn.btn-primary.btn-block.js-sign-in-button")).click();
    }
@@ -119,12 +129,15 @@ public class Project
    public static void browserincorrectcred()
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
 
       driver.get("https://github.com/login");
 
-      driver.findElement(By.cssSelector("#password")).sendKeys("vasista45@gmail.com");
+      driver.findElement(By.cssSelector("#login_field")).sendKeys("vasista45@gmail.com");
       driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("20Vasi2@12");
       driver.findElement(By.cssSelector("#login > div.auth-form-body.mt-3 > form > div > input.btn.btn-primary.btn-block.js-sign-in-button")).click();
    }
@@ -132,8 +145,11 @@ public class Project
    public static void allLocators()
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
 
       driver.get("https://www.github.com/login");
       highlight(driver,driver.findElement(By.id("login_field")));
@@ -150,8 +166,11 @@ public class Project
 
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
 
       driver.get("https://www.facebook.com/");
       highlight(driver,driver.findElement(By.cssSelector("#content > div > div > div > div._8esl > div > img")));
@@ -162,8 +181,11 @@ public class Project
 
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
 
       driver.get("https://www.facebook.com/");
       highlight(driver,driver.findElement(By.xpath("//*[@id='reg_pages_msg']/a")));
@@ -203,7 +225,8 @@ public class Project
 
    }
 
-   public static void allAlerts() throws Exception {
+   public static void allAlerts() throws Exception
+   {
       Scanner scanner = new Scanner(System.in);
       System.out.println("Select the appropriate number based on your choice");
       System.out.println("1. Simple Alert");
@@ -238,15 +261,18 @@ public class Project
 
    public static void screenshot() throws IOException {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver= new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
       driver.manage().window().maximize();
-      driver.get("");
-      driver.findElement(By.id("signupbtn_topnav")).click();
+      driver.get("https://github.com/vasistavemapti/FinalProject/tree/master/src/main/java/org/example");
+
       TakesScreenshot ts=(TakesScreenshot)driver;
       File file=ts.getScreenshotAs(OutputType.FILE);
       try {
-         FileUtils.copyFile(file, new File("./Screenshots/Image1.png"));
+         FileUtils.copyFile(file, new File("E:/FinalProject/src/main/resources/image.png"));
       } catch (IOException e) {
          throw new RuntimeException(e);
       }
@@ -263,25 +289,28 @@ public class Project
 
    public static void checkbox()
    {
-       WebDriver driver;
-       WebDriverManager.edgedriver().setup();
-       driver = new EdgeDriver();
+      WebDriver driver;
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
 
       driver.get("https://demoqa.com/automation-practice-form");
-      WebElement isdisplayed = driver.findElement(By.cssSelector("#hobbiesWrapper > div.col-md-9.col-sm-12 > div:nth-child(1) > label"));
+      WebElement isdisplayed = driver.findElement(By.cssSelector("label[for='hobbies-checkbox-1']"));
       if(!isdisplayed.isDisplayed())
       {
 
          isdisplayed.click();
       }
 
-      WebElement isenabled = driver.findElement(By.cssSelector("#hobbiesWrapper > div.col-md-9.col-sm-12 > div:nth-child(1) > label"));
+      WebElement isenabled = driver.findElement(By.cssSelector("label[for='hobbies-checkbox-1']"));
       if(!isenabled.isEnabled())
       {
          isenabled.click();
       }
 
-      WebElement isselected = driver.findElement(By.cssSelector("#hobbiesWrapper > div.col-md-9.col-sm-12 > div:nth-child(1) > label"));
+      WebElement isselected = driver.findElement(By.cssSelector("label[for='hobbies-checkbox-1']"));
       if(!isselected.isSelected())
       {
          isselected.click();
@@ -291,9 +320,12 @@ public class Project
 
    public static void textbox()
    {
-       WebDriver driver;
-       WebDriverManager.edgedriver().setup();
-       driver = new EdgeDriver();
+      WebDriver driver;
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
       driver.get("https://demoqa.com/automation-practice-form");
 
       WebElement username = driver.findElement(By.cssSelector("#userEmail"));
@@ -316,28 +348,44 @@ public class Project
 
    public static void radiobutton()
    {
-          WebDriver driver;
-          WebDriverManager.edgedriver().setup();
-          driver = new EdgeDriver();
+      WebDriver driver;
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
 
       driver.get("https://demoqa.com/automation-practice-form");
 
-      WebElement isenabled = driver.findElement(By.cssSelector("#gender-radio-1"));
+      WebElement isenabled = driver.findElement(By.cssSelector("#genterWrapper > div.col-md-9.col-sm-12 > div:nth-child(1)"));
 
       if(!isenabled.isEnabled())
       {
          isenabled.click();
       }
 
+      WebElement isselected = driver.findElement(By.cssSelector("#genterWrapper > div.col-md-9.col-sm-12 > div:nth-child(1)"));
+
+      if(!isselected.isSelected())
+      {
+         isselected.click();
+      }
+
 
    }
    public static void dropdown()
    {
-        WebDriver driver;
-        WebDriverManager.edgedriver().setup();
-        driver = new EdgeDriver();
+      WebDriver driver;
+      WebDriverManager.chromedriver().setup();
 
-      driver.get("https://demoqa.com/automation-practice-form");
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
+
+      driver.get("https://www.techlistic.com/p/selenium-practice-form.html");
+
+      driver.manage().window().maximize();
+
       WebElement dropdown = driver.findElement(By.cssSelector("#continents"));
 
       if(!dropdown.isDisplayed())
@@ -359,16 +407,22 @@ public class Project
       if(!dropdownselect.isSelected())
       {
          dropdownselect.click();
-         select.selectByIndex(3);
+         select.selectByIndex(4);
 
       }
+
+
+
    }
 
    public static  void simplealert()
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
       driver.manage().window().maximize();
 
 
@@ -382,8 +436,11 @@ public class Project
    public static  void confirmalert() throws Exception
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
       driver.manage().window().maximize();
 
       driver.get("https://www.hyrtutorials.com/p/alertsdemo.html");
@@ -413,8 +470,11 @@ public class Project
    public static void promptalert() throws Exception
    {
       WebDriver driver;
-      WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
+      WebDriverManager.chromedriver().setup();
+
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      driver = new ChromeDriver(options);
       driver.manage().window().maximize();
       driver.get("https://www.hyrtutorials.com/p/alertsdemo.html");
 
@@ -424,7 +484,7 @@ public class Project
       Thread.sleep(2000);
       System.out.println(driver.switchTo().alert().getText());
       Thread.sleep(2000);
-      driver.switchTo().alert().sendKeys("Sabitha");
+      driver.switchTo().alert().sendKeys("VasistaVempati");
       driver.switchTo().alert().accept();
       Thread.sleep(2000);
       System.out.println(driver.findElement(By.id("output")).getText());
